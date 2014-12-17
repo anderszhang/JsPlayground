@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+  var head = document.getElementsByTagName("head");
+  var scriptNode = document.createElement("script");
+  scriptNode.src = "./js1.js";
+  console.log('js1 appendChild Start');
+  head[0].appendChild(scriptNode);
+  console.log('js1 appendChild Finish');
+</script>
+<script type="application/javascript" src="./js2.js">
+
+</script>
+</body>
+</html>
