@@ -1,0 +1,148 @@
+
+<html>
+<head>
+    <title>Restful Service Test</title>
+    <script src="../libs/zepto.js"></script>
+    <style type="text/css">
+        body, .normalFont
+        {
+            font-family : Arial, sans-serif;
+            font-size:13px;
+        }
+
+        table.grid
+        {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            border-collapse:collapse;
+            table-layout: fixed;
+        }
+
+        table.grid td,  table.grid th
+        {
+            border:1px solid #666666;
+            padding:3px 7px 2px 7px;
+            overflow:hidden;
+            word-wrap:break-word;
+        }
+
+        table.grid th
+        {
+            text-align:left;
+            padding-top:5px;
+            padding-bottom:4px;
+            background-color: #dedede;
+        }
+
+        table.grid tr.alt td
+        {
+            color:#000000;
+            background-color:#EAF2D3;
+        }
+
+        .title
+        {
+            font-size:20px;
+        }
+
+        .highlight
+        {
+            color: Red;
+        }
+
+        label
+        {
+            font-weight:bold
+        }
+    </style>
+</head>
+<body>
+
+<p class="title">Restful Service Test</p>
+
+<form action="test.htm" method="get" id="requestForm" name="requestForm">
+    <table class="grid">
+        <col width="100px" />
+        <col width="600px" />
+        <tr class="alt">
+            <td><label for="uri">Uri Template</label></td>
+            <td><input type="text" id="uri" name="uri" size="80%" class="normalFont" value="http://m.ctrip.com/restapi/Flight/Domestic/FlightList/Query" /></td>
+        </tr>
+        <tr>
+            <td><label for="verb">Http Verb</label></td>
+            <td>
+                <select id="verb" name="verb" class="normalFont">
+                    <option value="GET" >GET</option>
+                    <option value="PUT">PUT</option>
+                    <option value="POST" selected="selected">POST</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+            </td>
+        </tr>
+        <tr class="alt">
+            <td><label for="request">Request</label></td>
+            <td><textarea id="request" name="request" rows="15" cols="90" class="normalFont">{"tabtype":1,"ver":0,"tripType":1,"ticketIssueCty":"BJS","flag":0,"pageIdx":1,"items":[{"dCtyCode":"BJS","dCtyId":1,"dcityName":"åŒ—äº¬","dkey":3,"aCtyCode":"SHA","aCtyId":2,"acityName":"ä¸Šæµ·","akey":2,"date":"2013/10/16"}],"_items":[{"dCtyCode":"BJS","dCtyId":1,"dcityName":"åŒ—äº¬","dkey":3,"aCtyCode":"SHA","aCtyId":2,"acityName":"ä¸Šæµ·","akey":2,"date":"2013/10/16"}],"class":0,"depart-sorttype":"time","depart-orderby":"asc","arrive-sorttype":"time","arrive-orderby":"asc","calendarendtime":"2014/02/28 00:00:00","__tripType":1,"head":{"cid":"66eabc3b-1685-34d1-71b7-5eb149056b65","ctok":"351858059049938","cver":"4.6","lang":"01","sid":"8888","syscode":"09","auth":""}}</textarea></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <button id="invoke" name="invoke" class="normalFont">Invoke</button>
+                <button id="clearResult" name="clearResult" class="normalFont">Clear Result</button>
+            </td>
+        </tr>
+
+        <tr class="alt">
+            <td><label for="response">Response</label></td>
+            <td><textarea id="response" name="response" rows="15" cols="90" readonly="readonly" class="normalFont"></textarea></td>
+        </tr>
+    </table>
+</form>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+
+        $('#clearResult').click(function (e) {
+            e.preventDefault();
+            $('#response').val('');
+        });
+
+        //
+        // when the Invoke button is clicked,
+        // call the restful service.
+        //
+        $('#invoke').click(function (e) {
+            var uri;
+            var verb;
+            var request;
+
+            e.preventDefault();
+
+            uri = $('#uri').val();
+            verb = $('#verb').val();
+            request = $('#request').val();
+
+            if (uri == null || uri == "") {
+                return;
+            }
+
+            //call the restful service.
+            $.ajax({
+                url: uri
+                , type: verb
+                , datatype: 'json'
+                , contentType: 'application/json; charset=utf-8'
+                , data: request
+                , cache: false,
+                success: function(result){
+                    $('#response').val(JSON.stringify(result));
+                },
+                error: function(xhr, type){
+                    $('#response').val(JSON.stringify(xhr));
+                }
+            })
+        }); // end of  $('#invoke').click()
+    }); // end of $(document).ready()
+</script>
+
+</body>
+</html>

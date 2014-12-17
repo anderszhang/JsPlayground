@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>event demo</title>
+    <style type="text/css">
+
+        #parent{
+            width: 300px;
+            height: 300px;
+            border: #000000 solid 1px;
+        }
+
+        #child{
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            margin: 100px auto;
+            border: red solid 1px;
+        }
+    </style>
+</head>
+<body>
+<div id="parent">
+
+</div>
+<script type="application/javascript">
+    var parent = document.getElementById('parent');
+    var start ;
+    parent.addEventListener('touchstart',function(e){
+       start = new Date().getTime();
+       log('touchstart  :'+ 0 );
+    });
+
+    parent.addEventListener('touchend',function(e){
+       var t = new Date().getTime();
+       log('touchend :'+ (t-start))
+    });
+
+    parent.addEventListener('mousedown',function(e){
+        var t = new Date().getTime();
+        log('mousedown '+ (t-start))
+    });
+
+    parent.addEventListener('mouseup',function(e){
+        var t = new Date().getTime();
+        log('mouseup '+ (t-start))
+    });
+
+    parent.addEventListener('click',function(e){
+        var t = new Date().getTime();
+        log('click '+ (t-start))
+    });
+
+    function log(msg){
+       var log =  document.createElement('div');
+       log.innerHTML = msg;
+       document.body.appendChild(log);
+    }
+</script>
+</body>
+</html>

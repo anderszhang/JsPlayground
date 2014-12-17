@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>event demo</title>
+    <style type="text/css">
+
+        #parent{
+            width: 300px;
+            height: 300px;
+            border: #000000 solid 1px;
+        }
+
+        #child{
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            margin: 100px auto;
+            border: red solid 1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="parent">
+        <div id="child">child</div>
+    </div>
+    <script type="application/javascript">
+        var parent = document.getElementById('parent');
+        var child = document.getElementById('child');
+
+        parent.addEventListener('click',function(e){
+            console.log(e.target);
+            console.log(e.currentTarget);
+            //console.log(e);
+            console.log('parent capture')
+        },true);
+
+        /*parent.addEventListener('click',function(e){
+            console.log(e);
+            console.log('parent bubble')
+        },false);
+
+        child.addEventListener('click',function(e){
+           //e.stopImmediatePropagation();
+           // e.stopPropagation();
+            console.log('child capture')
+        },true);
+
+        child.addEventListener('click',function(e){
+            console.log('child bubble')
+        },false);*/
+
+        /*
+            执行顺序
+            parent capture
+            child capture
+            child bubble
+            parent bubble
+
+            使用e.stopPropagation(),停止下一个元素的事件处理
+             parent capture
+             child capture
+             child bubble
+
+            使用e.stopImmediatePropagation(),从当前元素开始就停止下一个事件处理
+             parent capture
+             child capture
+         */
+    </script>
+</body>
+</html>

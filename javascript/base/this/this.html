@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script language="JavaScript">
+    //        console.log('before:'+ a);
+    //        if('a' in window){
+    //            a = '1';
+    //        }
+    //        console.log(a);
+
+    //false
+    //console.log( 'a' in window);
+    //var a;
+    //        var in_window = 'a' in window;
+    //        console.log(in_window);
+    //        var a ;
+
+    //js 会将变量声明提前,包括括号内的声明
+    //undefined
+    //    if (false) {
+    //        var a = 1;
+    //    }
+    //    alert(a)
+
+//    var a = function () {
+//        return true
+//    };
+//    var a;
+//    if (a()) {
+//        a = '1';
+//    }
+//    s = '';
+//    alert(a);
+
+
+    var name = '素还真';
+    function global_getName() {
+        var scope = this;
+        return scope.name;
+        var s = ''//无实际意义，用于设置断点
+    }
+    var person = {
+        name: '叶小钗',
+        getName: global_getName
+    };
+    var hehe = {
+        name: '笑吧',
+        getName: person.getName
+    };
+
+    var s1 = global_getName();//素还真
+    var s2 = person.getName();//叶小钗
+    var s3 = hehe.getName(); //笑吧
+
+    console.log(s1);
+    console.log(s2);
+    console.log(s3);
+</script>
+</body>
+</html>

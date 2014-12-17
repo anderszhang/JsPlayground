@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>event demo</title>
+    <style type="text/css">
+
+        #parent{
+            width: 300px;
+            height: 300px;
+            border: #000000 solid 1px;
+        }
+    </style>
+</head>
+<body>
+<div id="parent">
+
+</div>
+
+<input type="button" value="replace" id="replaceBtn" />
+<input type="button" value="set href" id="hrefBtn" />
+<input type="button" value="set hash" id="setBtn" />
+<input type="button" value="back" id="backBtn" />
+<input type="button" value="go" id="goBtn" />
+
+<script src="../../../libs/zepto.js"></script>
+<script type="application/javascript">
+    var seedNum = 0;
+
+    $(window).on('hashchange',printlog);
+
+    function printlog(){
+        console.log('hashchange-------------------');
+        console.log('history.length: '+ history.length);
+        $('#parent').html(seedNum);
+    }
+
+    //replece 触发hashchange,不会在history中增加记录
+    $('#replaceBtn').on('click',function(){
+        seedNum++;
+        window.location.replace("#"+seedNum);
+
+    })
+
+    // href 也会触发hash change,同时会在histroy中增加记录
+    $('#hrefBtn').on('click',function(){
+        seedNum++;
+        window.location.href="#"+seedNum
+        // location.href = ("#" + seedNum).replace(/^#+/, "#")
+        console.log('history.length: '+ history.length);
+    });
+
+    //设置hash 会在histroy中增加记录,set href
+    $('#setBtn').on('click',function(){
+        seedNum++
+        location.hash = seedNum;
+    });
+
+    $('#backBtn').on('click',function(){
+        seedNum--;
+        history.back();
+    });
+
+    $('#goBtn').on('click',function(){
+
+        history.forward();
+    });
+
+    $('#parent').html(seedNum);
+</script>
+</body>
+</html>

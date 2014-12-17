@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>event demo</title>
+    <style type="text/css">
+
+        #parent {
+            width: 300px;
+            height: 300px;
+            border: #000000 solid 1px;
+        }
+    </style>
+</head>
+<body>
+<div id="parent">
+
+</div>
+
+<input type="button" value="pushstate" id="pushBtn"/>
+<input type="button" value="set hash" id="setBtn"/>
+<input type="button" value="back" id="backBtn"/>
+<input type="button" value="go" id="goBtn"/>
+
+<script src="../../../libs/zepto.js"></script>
+<script type="application/javascript">
+    var seedNum = 0;
+
+     $(window).on('popstate',printlog);
+
+    function printlog(data) {
+        console.log('popstate-------------------');
+        console.log('history.length: ' + history.length);
+        $('#parent').html(data.state);
+    }
+
+    $('#pushBtn').on('click', function () {
+        seedNum++;
+        window.history.pushState(seedNum, seedNum, location.href + "/" + seedNum);
+    })
+
+    //修改hash时,会触发popstate
+    $('#setBtn').on('click',function(){
+        seedNum++
+        location.hash = seedNum;
+    });
+
+    //回退时,会出发popstate
+    $('#backBtn').on('click', function () {
+        seedNum--;
+        history.back();
+    });
+    //go 也会触发
+    $('#goBtn').on('click', function () {
+
+        history.forward();
+    });
+
+
+</script>
+</body>
+</html>
