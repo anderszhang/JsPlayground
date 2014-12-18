@@ -46,3 +46,5 @@ node_modules
 .idea/inspectionProfiles/profiles_settings.xml
 
 .idea/inspectionProfiles/Project_Default.xml
+
+atlassian-ide-plugin.xml
